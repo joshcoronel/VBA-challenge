@@ -78,6 +78,34 @@ Sub analysis()
         Next data_count
 
 '        Worksheets(Name).Columns("A:M").AutoFit
+
+   
+        SummaryLastRow = Cells(Rows.count, 9).End(xlUp).Row
+
+        Cells(2, 14).Value = "Greatest % Increase"
+        Cells(3, 14).Value = "Greatest % Decrease"
+        Cells(4, 14).Value = "Greatest Total Volume"
+        Cells(1, 15).Value = "Ticker"
+        Cells(1, 16).Value = "Value"
+            
+        For j = 2 To SummaryLastRow
+            If Cells(j, 11).Value = Application.WorksheetFunction.Max(Range("K2:K" & SummaryLastRow)) Then
+                Cells(2, 15).Value = Cells(j, 9).Value
+                Cells(2, 16).Value = Cells(j, 11).Value
+                Cells(2, 16).NumberFormat = "0.00%"
+                
+            ElseIf Cells(j, 11).Value = Application.WorksheetFunction.Min(Range("K2:K" & SummaryLastRow)) Then
+                Cells(3, 15).Value = Cells(j, 9).Value
+                Cells(3, 16).Value = Cells(j, 11).Value
+                Cells(3, 16).NumberFormat = "0.00%"
+                
+            ElseIf Cells(j, 12).Value = Application.WorksheetFunction.Max(Range("L2:L" & SummaryLastRow)) Then
+                Cells(4, 15).Value = Cells(j, 9).Value
+                Cells(4, 16).Value = Cells(j, 12).Value
+            
+            End If
+        Next j
+
     Next ws
 
 End Sub
